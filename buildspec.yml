@@ -5,7 +5,7 @@ phases:
     runtime_versions:
       nodejs: 18.12.1
     commands:
-      - ehco Started Creating Work Environment on `date`
+      - ehco Started Creating Work Environment
       - npm install && npm install -g @angular/cli
       - echo Performing AWS Container Registry Login
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 578045056986.dkr.ecr.us-east-1.amazonaws.com
