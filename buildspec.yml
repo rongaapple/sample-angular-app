@@ -8,7 +8,7 @@ phases:
       - ehco Started Creating Work Environment on `date`
       - npm install && npm install -g @angular/cli
       - echo Performing AWS Container Registry Login
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/k7o7s8u3
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 578045056986.dkr.ecr.us-east-1.amazonaws.com
       - IMAGE_NAME=demo-angular-app
       - IMAGE_TAG=1.00
 
