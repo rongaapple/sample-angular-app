@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  pre-build:
+    runtime-versions:
+      nodejs: 18.12.1
+    commands:
+      - ehco Started Creating Work Environment on `date`
+      - npm install && npm install -g @angular/cli
+      - echo Performing AWS Container Registry Login
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/k7o7s8u3
+      - IMAGE_NAME=demo-angular-app
+      - IMAGE_TAG=1.00
+
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building Docker of the Angular Program
+      - docker build -t $IMAGE_NAME:latest .
+      - docker tag $IMAGE_NAME:latest $IMAGE_NAME:$IMAGE_TAG
+
+  push:
+    commands:
+      - echo Push Stage Initiated started on `date`
+      - echo Pushing Angular Docker Image to AWS ECR
+      - docker push $IMAGE_NAME:latest
+      - docker push $IMAGE_NAME:$IMAGE_TAG
