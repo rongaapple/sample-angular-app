@@ -19,7 +19,7 @@ phases:
       - docker build -t $IMAGE_NAME:latest .
       - docker tag $IMAGE_NAME:latest $IMAGE_NAME:$IMAGE_TAG
 
-  push:
+  post_build:
     commands:
       - echo Push Stage Initiated started on `date`
       - echo Pushing Angular Docker Image to AWS ECR
