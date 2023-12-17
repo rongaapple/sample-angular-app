@@ -1,8 +1,8 @@
 version: 0.2
 
 phases:
-  pre-build:
-    runtime-versions:
+  pre_build:
+    runtime_versions:
       nodejs: 18.12.1
     commands:
       - ehco Started Creating Work Environment on `date`
