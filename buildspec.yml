@@ -9,15 +9,16 @@ phases:
       - npm install && npm install -g @angular/cli
       - echo Performing AWS Container Registry Login
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 578045056986.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=578045056986.dkr.ecr.us-east-1.amazonaws.com/sample-angular-app
 
   build:
     commands:
       - echo Building Docker of the Angular Program
-      - docker build -t demo-angular-app:latest .
-      - docker tag demo-angular-app:latest demo-angular-app:1.00
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:1.00
 
   post_build:
     commands:
       - echo Pushing Angular Docker Image to AWS ECR
-      - docker push demo-angular-app:latest
-      - docker push demo-angular-app:1.00
+      - docker push $REPOSITORY_URI:latest
+      - echo Operation Completed Successfully!
