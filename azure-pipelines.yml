@@ -1,0 +1,15 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.12.1'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install && npm install -g @angular/cli
+  displayName: 'Started Creating Work Environment'
