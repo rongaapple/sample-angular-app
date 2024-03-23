@@ -1,0 +1,60 @@
+---
+pipeline:
+  projectIdentifier: "default_project"
+  orgIdentifier: "default"
+  tags: {}
+  stages:
+  - stage:
+      name: "Build Jar"
+      identifier: "Build_Jar"
+      description: ""
+      type: "Custom"
+      spec:
+        execution:
+          steps:
+          - step:
+              type: "ShellScript"
+              name: "Build Jar File"
+              identifier: "Build_Jar_File"
+              spec:
+                shell: "Bash"
+                executionTarget: {}
+                source:
+                  type: "Inline"
+                  spec:
+                    script: "#!/bin/bash\nmvn clean install -DSkipTests"
+                environmentVariables: []
+                outputVariables: []
+              timeout: "10m"
+      tags: {}
+  - stage:
+      name: "Docker Build"
+      identifier: "Docker_Build"
+      description: ""
+      type: "CI"
+      spec:
+        cloneCodebase: true
+        platform:
+          os: "Linux"
+          arch: "Arm64"
+        runtime:
+          type: "Docker"
+          spec: {}
+        execution:
+          steps:
+          - step:
+              type: "BuildAndPushDockerRegistry"
+              name: "BuildAndPushDockerRegistry_1"
+              identifier: "BuildAndPushDockerRegistry_1"
+              spec:
+                connectorRef: "ProjectSecret"
+                repo: "anuragdc/test"
+                tags:
+                - "1.1"
+  properties:
+    ci:
+      codebase:
+        connectorRef: "redapple"
+        build: "<+input>"
+  identifier: "Debajit_Windows"
+  name: "Debajit - Windows"
